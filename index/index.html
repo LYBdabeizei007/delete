@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            padding:0;
+            margin:0;
+        }
+        p{
+            margin-bottom: 5px;
+        }
+        span:hover{
+            cursor: pointer;
+        }
+    </style>
+    <script src="jquery-1.11.3.js"></script>
+    <script>
+        $(function () {
+            $.ajax({
+                url:'http://localhost:3000/js/list',
+                type:'GET',
+                data:{
+
+                },
+                success:function (data) {
+                    for(var i in data){
+                        $('body').append('<p><b>'+data[i].name+'</b><span id="'+data[i].id+'">X</span></p>')
+                    }
+                }
+            })
+            $(document).on('click','span',(function () {
+                var a=$(this).attr('id')
+                $.ajax({
+                    url:'http://localhost:3000/js/detele',
+                    type:'POST',
+                    data:{
+                        id:a
+                    },
+                    success:function (data) {
+
+                    }
+                })
+                console.log(a)
+                $(this).parent().remove()
+            })
+            )
+        })
+    </script>
+</head>
+<body>
+
+</body>
+</html>
